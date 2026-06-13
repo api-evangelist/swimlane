@@ -1,0 +1,32 @@
+{
+  "description": "Example: Authenticate with Swimlane using username and password to obtain a JWT token",
+  "request": {
+    "method": "POST",
+    "path": "/api/user/login",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "userName": "admin@example.com",
+      "password": "s3cr3tP@ssw0rd"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "user": {
+        "id": "uSeRiD12345",
+        "displayName": "Admin User",
+        "email": "admin@example.com",
+        "userName": "admin@example.com",
+        "roles": ["role-admin-id"],
+        "groups": ["group-security-id"],
+        "isAdmin": true,
+        "active": true,
+        "disabled": false
+      }
+    }
+  },
+  "notes": "The returned token should be included as 'Authorization: Bearer {token}' in subsequent requests. Tokens expire and will be auto-refreshed by the SDK 5 minutes before expiration. Alternatively, use a Personal Access Token (PAT) in the 'Private-Token' header."
+}

@@ -1,0 +1,140 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "swim": "https://swimlane.com/api/ontology/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Application": "swim:Application",
+    "Record": "swim:Record",
+    "User": "swim:User",
+    "Group": "swim:Group",
+    "Report": "swim:Report",
+    "Task": "swim:Task",
+    "Playbook": "swim:Playbook",
+    "Field": "swim:Field",
+    "AppRevision": "swim:AppRevision",
+    "RecordRevision": "swim:RecordRevision",
+
+    "id": "@id",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "displayName": {
+      "@id": "swim:displayName",
+      "@type": "xsd:string"
+    },
+    "userName": {
+      "@id": "swim:userName",
+      "@type": "xsd:string"
+    },
+    "acronym": {
+      "@id": "swim:acronym",
+      "@type": "xsd:string"
+    },
+    "trackingFull": {
+      "@id": "swim:trackingFull",
+      "@type": "xsd:string"
+    },
+    "applicationId": {
+      "@id": "swim:applicationId",
+      "@type": "xsd:string"
+    },
+    "fieldType": {
+      "@id": "swim:fieldType",
+      "@type": "xsd:string"
+    },
+    "values": {
+      "@id": "swim:values"
+    },
+    "fields": {
+      "@id": "swim:fields",
+      "@container": "@set"
+    },
+    "roles": {
+      "@id": "swim:roles",
+      "@container": "@set"
+    },
+    "groups": {
+      "@id": "swim:groups",
+      "@container": "@set"
+    },
+    "isAdmin": {
+      "@id": "swim:isAdmin",
+      "@type": "xsd:boolean"
+    },
+    "active": {
+      "@id": "swim:active",
+      "@type": "xsd:boolean"
+    },
+    "disabled": {
+      "@id": "swim:disabled",
+      "@type": "xsd:boolean"
+    },
+    "required": {
+      "@id": "swim:required",
+      "@type": "xsd:boolean"
+    },
+    "readOnly": {
+      "@id": "swim:readOnly",
+      "@type": "xsd:boolean"
+    },
+    "revisionNumber": {
+      "@id": "swim:revisionNumber",
+      "@type": "xsd:decimal"
+    },
+    "modifiedDate": {
+      "@id": "swim:modifiedDate",
+      "@type": "xsd:dateTime"
+    },
+    "createdDate": {
+      "@id": "swim:createdDate",
+      "@type": "xsd:dateTime"
+    },
+    "createdByUser": {
+      "@id": "swim:createdByUser",
+      "@type": "@id"
+    },
+    "modifiedByUser": {
+      "@id": "swim:modifiedByUser",
+      "@type": "@id"
+    },
+    "taskId": {
+      "@id": "swim:taskId",
+      "@type": "xsd:string"
+    },
+    "taskType": {
+      "@id": "swim:taskType",
+      "@type": "xsd:string"
+    },
+    "filters": {
+      "@id": "swim:filters",
+      "@container": "@set"
+    },
+    "columns": {
+      "@id": "swim:columns",
+      "@container": "@set"
+    },
+    "apiVersion": {
+      "@id": "swim:apiVersion",
+      "@type": "xsd:string"
+    },
+    "items": {
+      "@id": "swim:items",
+      "@container": "@set"
+    },
+    "count": {
+      "@id": "swim:count",
+      "@type": "xsd:integer"
+    }
+  }
+}

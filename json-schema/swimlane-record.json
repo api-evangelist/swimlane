@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/swimlane/main/json-schema/swimlane-record.json",
+  "title": "Swimlane Record",
+  "description": "A record within a Swimlane application, containing field values for a specific case, alert, or incident.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique record identifier"
+    },
+    "trackingFull": {
+      "type": "string",
+      "description": "Full tracking identifier (e.g., APP-12345)"
+    },
+    "applicationId": {
+      "type": "string",
+      "description": "Identifier of the application this record belongs to"
+    },
+    "values": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Map of field IDs or names to their values"
+    },
+    "createdDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the record was created"
+    },
+    "createdByUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        }
+      }
+    },
+    "modifiedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the record was last modified"
+    },
+    "modifiedByUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

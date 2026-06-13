@@ -1,0 +1,63 @@
+vocabulary:
+  name: Swimlane API Vocabulary
+  description: Domain terms and concepts used in the Swimlane SOAR platform API
+  provider: swimlane
+  version: "1.0"
+  terms:
+    - term: SOAR
+      definition: Security Orchestration, Automation, and Response — the category of platform Swimlane belongs to, enabling automated security workflows.
+      related: [playbook, workflow, automation]
+    - term: Turbine
+      definition: Swimlane's cloud-native next-generation platform offering agentic AI automation for security operations.
+      related: [SOAR, agentic-ai, connector]
+    - term: application
+      definition: A workspace in Swimlane that defines a record schema (fields), workflows, and permissions for a specific security use case (e.g., Incident Response, Threat Intelligence).
+      related: [record, field, acronym]
+    - term: record
+      definition: A data entry within a Swimlane application, representing a single case, alert, incident, or entity with field values.
+      related: [application, trackingId, revision]
+    - term: trackingId
+      definition: A human-readable identifier for a record, composed of the application acronym and a sequential number (e.g., INC-1042).
+      related: [record, application, acronym]
+    - term: acronym
+      definition: A short uppercase prefix assigned to a Swimlane application, used as the prefix in tracking IDs.
+      related: [application, trackingId]
+    - term: playbook
+      definition: An automated workflow in Swimlane that defines a sequence of actions to perform in response to a security event.
+      related: [workflow, task, automation, SOAR]
+    - term: task
+      definition: An individual action or step within a playbook, which can be executed programmatically via the API.
+      related: [playbook, workflow]
+    - term: report
+      definition: A saved query and column set defined within a Swimlane application that retrieves filtered record sets.
+      related: [application, record, filter]
+    - term: bearer-token
+      definition: A JWT token used for authenticating API requests, obtained from the /api/user/login endpoint.
+      related: [authentication, PAT, JWT]
+    - term: PAT
+      definition: Personal Access Token — a long-lived token generated within the Swimlane UI for API access without using a password. Sent via the Private-Token header.
+      related: [authentication, bearer-token]
+    - term: SCIM
+      definition: System for Cross-domain Identity Management — a protocol supported by Swimlane Business plans for automated user provisioning and deprovisioning.
+      related: [user, provisioning, identity]
+    - term: connector
+      definition: An integration module in Swimlane Turbine that connects to a third-party security tool or service.
+      related: [Turbine, integration, playbook]
+    - term: agentic-ai
+      definition: Autonomous AI capabilities in Swimlane Turbine that can make decisions and take actions without human intervention in security operations workflows.
+      related: [Turbine, SOAR, automation]
+    - term: bulk-job
+      definition: An asynchronous operation that processes multiple records simultaneously, returning a job ID for status tracking.
+      related: [record, logging, job]
+    - term: revision
+      definition: A versioned snapshot of a record or application at a point in time, enabling audit trails and change tracking.
+      related: [record, application, history]
+    - term: group
+      definition: A collection of Swimlane users, used for role-based access control and record assignment.
+      related: [user, role, permissions]
+    - term: field
+      definition: A named data attribute within a Swimlane application schema, with a specific type such as text, number, date, selection, or reference.
+      related: [application, record, fieldType]
+    - term: MSSP
+      definition: Managed Security Service Provider — a key customer segment for Swimlane, using the platform to provide security operations services to multiple clients.
+      related: [SOAR, Turbine, automation]

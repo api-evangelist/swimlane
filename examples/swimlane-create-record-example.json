@@ -1,0 +1,40 @@
+{
+  "description": "Example: Create a record in a Swimlane application",
+  "request": {
+    "method": "POST",
+    "path": "/api/app/{appId}/record/batch",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "Title": "Suspicious Login Attempt",
+        "Severity": "High",
+        "Status": "Open",
+        "Assigned To": "security-team",
+        "Description": "Multiple failed login attempts detected from IP 203.0.113.42",
+        "Source IP": "203.0.113.42",
+        "Detection Time": "2026-06-13T08:30:00Z"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "aB3cDeFgHiJkLmNo",
+      "trackingFull": "INC-1042",
+      "applicationId": "xY9zAbCdEfGhIjKl",
+      "values": {
+        "Title": "Suspicious Login Attempt",
+        "Severity": "High",
+        "Status": "Open"
+      },
+      "createdDate": "2026-06-13T08:31:00Z",
+      "createdByUser": {
+        "id": "uSeRiD12345",
+        "displayName": "API Service Account"
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/swimlane/main/json-schema/swimlane-app.json",
+  "title": "Swimlane Application",
+  "description": "A Swimlane application (workspace) that defines the structure for cases, alerts, or incident records.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique application identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Application display name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Application description"
+    },
+    "acronym": {
+      "type": "string",
+      "description": "Application acronym used as prefix for tracking IDs (e.g., INC for INC-12345)"
+    },
+    "fields": {
+      "type": "array",
+      "description": "Fields defined in the application schema",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique field identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field display name"
+          },
+          "fieldType": {
+            "type": "string",
+            "description": "Field data type",
+            "enum": ["text", "number", "date", "selection", "multiSelection", "reference", "userGroup", "comment", "attachment", "checkbox", "email", "phone", "url"]
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required"
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the field is read-only"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "description": "Example: Search for open high-severity incidents via report",
+  "request": {
+    "method": "GET",
+    "path": "/api/reports/app/{appId}",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": [
+      {
+        "id": "rEpOrT12345",
+        "name": "Open High Severity Incidents",
+        "applicationId": "xY9zAbCdEfGhIjKl",
+        "filters": [
+          {
+            "fieldId": "Severity",
+            "operator": "equals",
+            "value": "High"
+          },
+          {
+            "fieldId": "Status",
+            "operator": "equals",
+            "value": "Open"
+          }
+        ],
+        "columns": ["Title", "Severity", "Status", "Assigned To", "Detection Time"]
+      }
+    ]
+  }
+}
