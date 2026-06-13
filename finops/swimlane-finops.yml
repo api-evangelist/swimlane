@@ -1,0 +1,121 @@
+name: Swimlane FinOps Framework
+description: >-
+  FinOps cost management and optimization guidance for Swimlane Turbine SOAR
+  platform API usage. Swimlane uses an action-volume pricing model where costs
+  are tied to the number of automated actions executed across playbooks and
+  workflows. This framework provides guidance for managing, forecasting, and
+  optimizing Swimlane API and platform costs.
+specificationVersion: "1.0"
+framework: FinOps Framework FOCUS-aligned
+url: https://swimlane.com/platform/
+organization: Swimlane
+product: Swimlane Turbine
+
+costModel:
+  type: action-volume
+  description: >-
+    Swimlane charges based on the volume of automated actions performed
+    rather than per-seat or per-user pricing. This aligns costs with
+    the value delivered through automation.
+  unit: automated actions
+  billingPeriod: annual
+  minimumCommitment:
+    amount: 47250
+    currency: USD
+    period: annual
+  notes: >-
+    Contact Swimlane sales for custom pricing based on expected action volumes
+    and organizational requirements.
+
+dimensions:
+  - name: Action Volume
+    description: Total number of automated actions executed across all playbooks
+    costDriver: true
+    optimization: >-
+      Audit playbooks for redundant or unnecessary actions. Consolidate
+      overlapping automation to reduce action count without losing coverage.
+  - name: Connector Usage
+    description: Number and type of third-party integrations and connectors used
+    costDriver: false
+    notes: Connectors are included in the platform license (500+ available).
+  - name: User Seats
+    description: Number of platform users (analysts, administrators)
+    costDriver: false
+    notes: Swimlane does not charge per-seat; user count does not directly affect cost.
+  - name: Deployment Type
+    description: Cloud (SaaS) vs. on-premise deployment
+    costDriver: true
+    notes: >-
+      On-premise deployments may have different licensing structures.
+      Cloud deployments on us1.swimlane.app are managed SaaS.
+
+optimization:
+  - name: Playbook Efficiency Review
+    description: >-
+      Regularly audit playbooks to identify redundant action steps, duplicate
+      API calls, and opportunities to consolidate logic into fewer actions.
+    category: cost-reduction
+    frequency: quarterly
+  - name: Alert Deduplication
+    description: >-
+      Implement alert deduplication and suppression rules to prevent the same
+      alert from triggering multiple playbook runs unnecessarily.
+    category: cost-reduction
+    frequency: ongoing
+  - name: Action Volume Forecasting
+    description: >-
+      Track monthly action volume trends against contracted limits to forecast
+      overage risk and plan for renewal negotiations.
+    category: cost-visibility
+    frequency: monthly
+  - name: Playbook Testing Environment
+    description: >-
+      Use a staging or development Swimlane instance for playbook development
+      and testing to avoid consuming production action volume allocations.
+    category: cost-reduction
+    frequency: ongoing
+  - name: Integration Rationalization
+    description: >-
+      Review active connectors and integrations to ensure all 500+ available
+      connectors in use are providing measurable security value.
+    category: value-optimization
+    frequency: annually
+
+reporting:
+  - name: Monthly Action Volume Report
+    description: Track automated actions executed per month vs. contract limits
+    cadence: monthly
+    owner: Security Operations Manager
+  - name: Playbook Cost Attribution
+    description: Attribute action volume costs to specific playbooks and use cases
+    cadence: quarterly
+    owner: FinOps / Security Engineering
+  - name: Annual Contract Review
+    description: >-
+      Review contracted action volume vs. actual usage to right-size the
+      annual commitment at renewal.
+    cadence: annually
+    owner: CISO / Procurement
+
+budgeting:
+  approach: commitment-based
+  notes: >-
+    Swimlane requires annual commitments. Budget for the full annual contract
+    amount upfront. Build in 20-30% buffer above current action volume for
+    growth when negotiating contracts.
+  costCategories:
+    - name: Platform License
+      type: fixed
+      description: Annual Swimlane Turbine subscription
+    - name: Professional Services
+      type: variable
+      description: Implementation, integration development, and training services
+    - name: Support Tier
+      type: fixed
+      description: Support plan (included or premium tier)
+
+contact:
+  - type: Sales
+    url: https://swimlane.com/contact/
+  - type: Support
+    url: https://swimlane.com/support/

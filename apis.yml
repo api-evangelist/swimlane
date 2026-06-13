@@ -1,0 +1,113 @@
+aid: swimlane
+name: Swimlane
+description: >-
+  Swimlane is a security orchestration, automation, and response (SOAR) platform
+  that provides a REST API for managing playbooks, cases, alerts, workflows, and
+  integrating with security tools. The Swimlane Turbine platform offers agentic AI
+  automation for security operations, enabling enterprise security teams and MSSPs
+  to automate threat detection, incident response, and compliance workflows at scale.
+  The REST API supports bearer token and personal access token (PAT) authentication
+  and exposes endpoints for users, roles, records, applications, playbooks, and more.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/swimlane/refs/heads/main/apis.yml
+created: "2026-06-13"
+modified: "2026-06-13"
+specificationVersion: "0.19"
+tags:
+  - SOAR
+  - Security Orchestration
+  - Automation
+  - Incident Response
+  - Playbooks
+  - Case Management
+  - Security Operations
+  - Agentic AI
+apis:
+  - aid: swimlane:swimlane-rest-api
+    name: Swimlane REST API
+    description: >-
+      The Swimlane REST API allows programmatic access to the Swimlane platform,
+      supporting management of users, roles, records, applications, playbooks,
+      cases, and alerts. Authentication is via bearer tokens generated from user
+      profile API token settings or personal access tokens (PAT). The embedded
+      Swagger/OpenAPI UI is available at /api/swagger on each instance.
+    humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+    baseURL: https://{your-instance}.swimlane.app/api
+    tags:
+      - REST API
+      - Security
+      - SOAR
+      - Playbooks
+      - Case Management
+    properties:
+      - type: Documentation
+        url: https://docs.swimlane.com/user-guide-10x/rest-api
+      - type: OpenAPI
+        url: https://{your-instance}.swimlane.app/api/swagger
+    contact:
+      - FN: Swimlane Support
+        url: https://swimlane.com/support/
+  - aid: swimlane:swimlane-turbine-api
+    name: Swimlane Turbine API
+    description: >-
+      The Swimlane Turbine API provides access to the cloud-native Turbine platform,
+      enabling integration with 500+ security tools and connectors. The Turbine API
+      connector supports generic API requests to any Turbine instance with username/
+      password or personal access token authentication.
+    humanURL: https://docs.swimlane.com/connectors/swimlane-turbine-api
+    baseURL: https://{host}.swimlane.app/api
+    tags:
+      - Turbine
+      - Cloud-Native
+      - Integrations
+      - Connectors
+      - Agentic AI
+    properties:
+      - type: Documentation
+        url: https://docs.swimlane.com/connectors/swimlane-turbine-api
+    contact:
+      - FN: Swimlane Support
+        url: https://swimlane.com/support/
+  - aid: swimlane:swimlane-scim-api
+    name: Swimlane SCIM API
+    description: >-
+      Swimlane provides a SCIM v2 API for user lifecycle management and provisioning
+      on Business plans. The SCIM endpoint uses a separately generated bearer token
+      for authentication and enables automated user provisioning and deprovisioning.
+    humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+    baseURL: https://{your-instance}.swimlane.app/api/scim/v2
+    tags:
+      - SCIM
+      - User Provisioning
+      - Identity Management
+    properties:
+      - type: Documentation
+        url: https://docs.swimlane.com/user-guide-10x/rest-api
+    contact:
+      - FN: Swimlane Support
+        url: https://swimlane.com/support/
+common:
+  - type: Website
+    url: https://swimlane.com
+  - type: Documentation
+    url: https://docs.swimlane.com
+  - type: GitHubOrg
+    url: https://github.com/swimlane
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/swimlane
+  - type: Blog
+    url: https://swimlane.com/blog/
+  - type: Pricing
+    url: https://swimlane.com/platform/
+  - type: X
+    url: https://twitter.com/swimlane
+  - type: Plans
+    url: plans/swimlane-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/swimlane-rate-limits.yml
+  - type: FinOps
+    url: finops/swimlane-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

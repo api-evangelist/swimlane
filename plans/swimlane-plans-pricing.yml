@@ -1,0 +1,64 @@
+name: Swimlane Plans and Pricing
+description: >-
+  Swimlane uses an action-volume based pricing model for its Turbine SOAR platform.
+  Pricing is enterprise-focused and based on the number of automated actions performed
+  rather than per-seat licensing, aligning costs with the value delivered. Organizations
+  should contact Swimlane directly for custom pricing based on their specific requirements
+  and deployment needs. The platform starts at approximately $47,250 per year for
+  Enterprise customers.
+specificationVersion: "0.1"
+url: https://swimlane.com/platform/
+plans:
+  - name: Turbine Enterprise
+    description: >-
+      Full-featured enterprise SOAR platform with agentic AI automation, low-code
+      playbook builder, 500+ connectors, case management, real-time dashboards,
+      and multi-tenant architecture for MSSPs. Pricing is based on action volume.
+    type: enterprise
+    url: https://swimlane.com/platform/
+    pricing:
+      model: action-volume
+      startingPrice: 47250
+      currency: USD
+      billingPeriod: annual
+      notes: >-
+        Pricing starts at approximately $47,250/year. Contact Swimlane for custom
+        enterprise pricing based on action volume and deployment requirements.
+    features:
+      - Agentic AI automation (Hero AI)
+      - Low-code playbook builder
+      - 500+ connectors and integrations
+      - Case management with AI-recommended actions
+      - Real-time dashboards and reporting
+      - Multi-tenant architecture
+      - Vulnerability Response Management
+      - Compliance Audit Readiness
+      - Business Continuity Management
+      - REST API access
+      - Python SDK access
+      - SCIM user provisioning
+      - Swimlane University training access
+  - name: MSSP / Service Provider
+    description: >-
+      Multi-tenant deployment option for Managed Security Service Providers (MSSPs)
+      to deliver security automation services to multiple clients from a single platform.
+    type: enterprise
+    url: https://swimlane.com/solutions/mssps/
+    pricing:
+      model: custom
+      notes: Contact Swimlane for MSSP-specific pricing and licensing terms.
+    features:
+      - Multi-tenant architecture
+      - White-labeling options
+      - Centralized management
+      - Per-client isolation
+      - All Turbine Enterprise features
+notes: >-
+  Swimlane does not publicly publish a detailed pricing page with tiers and costs.
+  All pricing is customized based on organization size, action volume, and deployment
+  type. Contact sales at swimlane.com for a quote.
+contact:
+  - type: Sales
+    url: https://swimlane.com/contact/
+  - type: Pricing
+    url: https://swimlane.com/platform/

@@ -1,0 +1,67 @@
+name: Swimlane API Rate Limits
+description: >-
+  Swimlane does not publicly document specific API rate limit thresholds or
+  rate limit response headers. Rate limits may vary by instance configuration,
+  deployment type (cloud vs. on-premise), and license tier. Administrators
+  should contact their Swimlane instance administrator or Swimlane support
+  for specific rate limit information before building high-frequency integrations
+  or polling loops against the REST API.
+specificationVersion: "0.1"
+url: https://docs.swimlane.com/user-guide-10x/rest-api
+rateLimits:
+  - name: REST API Rate Limits
+    description: >-
+      Swimlane does not publicly document specific rate limit thresholds.
+      Rate limits are instance-specific and may be configured by administrators.
+    scope: instance
+    type: undocumented
+    notes: >-
+      Contact your Swimlane instance administrator for rate limit details.
+      Avoid building tight polling loops against the REST API without first
+      confirming limits.
+  - name: Turbine Action Volume
+    description: >-
+      The Swimlane Turbine platform is rated for up to 25 million automated
+      actions per day. This represents the platform capacity rather than a
+      per-API-key rate limit.
+    scope: platform
+    type: throughput
+    limit: 25000000
+    period: day
+    unit: actions
+    notes: >-
+      This is platform capacity for automated playbook actions, not an API
+      rate limit for REST API calls.
+authentication:
+  - type: Bearer Token
+    description: >-
+      API tokens are generated from user profile settings → API Tokens.
+      Tokens inherit the permissions of the generating user. Use a dedicated
+      service account with appropriate roles for automation.
+    headerName: Authorization
+    headerFormat: "Bearer {token}"
+  - type: Personal Access Token (PAT)
+    description: >-
+      Personal Access Tokens can be generated within the Swimlane platform
+      for API access without using a password. Recommended for service
+      integrations and automation.
+    notes: Available for both Swimlane 10x and Turbine deployments.
+  - type: SCIM Bearer Token
+    description: >-
+      A separately generated bearer token is used for SCIM v2 user
+      provisioning API calls. Available on Business plans.
+    endpoint: https://{instance}/api/scim/v2
+headers:
+  - name: Authorization
+    description: Bearer token authentication header
+    required: true
+    format: "Bearer {api_token}"
+notes: >-
+  For production integrations, implement exponential backoff and retry logic
+  since specific rate limit thresholds are not publicly documented.
+  Monitor HTTP 429 Too Many Requests responses as an indicator of rate limiting.
+contact:
+  - type: Support
+    url: https://swimlane.com/support/
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
