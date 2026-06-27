@@ -1,46 +1,14 @@
 {
-  "provider": "swimlane",
-  "blogUrl": "https://swimlane.com/blog/",
-  "lastFetched": "2026-06-13",
-  "posts": [
-    {
-      "title": "Best AI SOC Platform Guide for Enterprise Security Teams",
-      "url": "https://swimlane.com/blog/best-ai-soc-platform-guide-enterprise-security-teams/",
-      "date": "2026-05-28",
-      "description": "A comprehensive guide examining top AI-powered SOC platforms for enterprise security organizations."
-    },
-    {
-      "title": "AI SOC Platforms: Capabilities, Architecture, and Use Cases",
-      "url": "https://swimlane.com/blog/ai-soc-platform-capabilities-architecture-use-cases/",
-      "date": "2026-05-26",
-      "description": "Explores the technical foundations and practical applications of AI SOC platforms in security operations."
-    },
-    {
-      "title": "Agentic AI in SOC: Autonomous Decision-Making Explained",
-      "url": "https://swimlane.com/blog/agentic-ai-in-soc/",
-      "date": "2026-05-22",
-      "description": "Details how agentic AI enables autonomous decision-making capabilities within security operations centers."
-    },
-    {
-      "title": "AI Agents vs Agentic AI: What's the Difference?",
-      "url": "https://swimlane.com/blog/ai-agents-vs-agentic-ai/",
-      "date": "2026-05-18",
-      "description": "Clarifies the distinctions between AI agents and agentic AI technologies in security contexts."
-    },
-    {
-      "title": "AI in SOC: How Artificial Intelligence Improves Incident Response",
-      "url": "https://swimlane.com/blog/ai-in-soc-incident-response/",
-      "date": "2026-05-14",
-      "description": "Examines how artificial intelligence enhances incident response workflows and effectiveness."
-    }
-  ],
   "repo": "swimlane",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/swimlane",
-      "error": "HTTPError"
+      "source": "https://swimlane.com/blog/",
+      "feed_url": "",
+      "saved": 1,
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:15:03Z",
+  "post_count": 2,
+  "agent_pulled": "2026-06-27"
 }
