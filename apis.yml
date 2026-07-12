@@ -88,6 +88,12 @@ apis:
       - FN: Swimlane Support
         url: https://swimlane.com/support/
 common:
+  - type: VulnerabilityDisclosure
+    url: security/swimlane-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/swimlane-domain-security.yml
+  - type: Authentication
+    url: authentication/swimlane-authentication.yml
   - type: Website
     url: https://swimlane.com
   - type: Documentation

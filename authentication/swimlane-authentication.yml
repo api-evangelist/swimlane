@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/swimlane-rest-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: JWT bearer token obtained from the user/login endpoint
+  sources:
+  - openapi/swimlane-rest-api-openapi.yml
+- name: PrivateTokenAuth
+  type: apiKey
+  in: header
+  parameter: Private-Token
+  description: Personal Access Token (PAT) generated within the Swimlane platform
+  sources:
+  - openapi/swimlane-rest-api-openapi.yml
