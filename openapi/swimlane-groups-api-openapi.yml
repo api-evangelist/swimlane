@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Groups API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Groups
+  description: Group management endpoints
+paths:
+  /groups:
+    get:
+      summary: List groups
+      description: Retrieve a paginated list of all groups
+      operationId: listGroups
+      tags:
+      - Groups
+      parameters:
+      - name: size
+        in: query
+        description: Number of groups per page
+        schema:
+          type: integer
+          default: 50
+      - name: pageNumber
+        in: query
+        description: Page number for pagination (zero-based)
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: List of groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupList'
+  /groups/{id}:
+    get:
+      summary: Get group by ID
+      description: Retrieve a single group by its unique identifier
+      operationId: getGroupById
+      tags:
+      - Groups
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Group identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Group object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+  /groups/lookup:
+    get:
+      summary: Lookup group by name
+      description: Find groups matching a given name
+      operationId: lookupGroupByName
+      tags:
+      - Groups
+      parameters:
+      - name: name
+        in: query
+        required: true
+        description: Group name to search for
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+components:
+  schemas:
+    GroupList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        count:
+          type: integer
+          description: Total number of groups
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique group identifier
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
+        users:
+          type: array
+          items:
+            type: string
+          description: List of user identifiers in this group
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Authentication API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Authentication
+  description: Endpoints for obtaining and managing authentication tokens
+paths:
+  /user/login:
+    post:
+      summary: Authenticate user
+      description: Authenticate using username and password to obtain a JWT token
+      operationId: loginUser
+      security: []
+      tags:
+      - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              userName: admin
+              password: s3cr3tP@ssw0rd
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/authorize:
+    get:
+      summary: Get authenticated user profile
+      description: Retrieve the profile of the currently authenticated user
+      operationId: authorizeUser
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Authenticated user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Not authenticated
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+        displayName:
+          type: string
+          description: User display name
+        email:
+          type: string
+          format: email
+          description: User email address
+        userName:
+          type: string
+          description: Username for login
+        roles:
+          type: array
+          items:
+            type: string
+          description: List of role identifiers assigned to the user
+        groups:
+          type: array
+          items:
+            type: string
+          description: List of group identifiers the user belongs to
+        isAdmin:
+          type: boolean
+          description: Whether the user has administrator privileges
+        active:
+          type: boolean
+          description: Whether the user account is active
+        disabled:
+          type: boolean
+          description: Whether the user account is disabled
+    Error:
+      type: object
+      properties:
+        ErrorCode:
+          type: integer
+          description: Numeric error code
+        Argument:
+          type: string
+          description: Additional error context
+        Entity:
+          type: string
+          description: Entity type related to the error
+    LoginRequest:
+      type: object
+      required:
+      - userName
+      - password
+      properties:
+        userName:
+          type: string
+          description: Swimlane username
+        password:
+          type: string
+          format: password
+          description: Swimlane password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT authentication token
+        user:
+          $ref: '#/components/schemas/User'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

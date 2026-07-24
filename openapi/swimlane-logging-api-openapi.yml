@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Logging API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Logging
+  description: Job logging and status endpoints
+paths:
+  /logging/job/{jobId}:
+    get:
+      summary: Get bulk job status
+      description: Check the status of a bulk operation job (requires Swimlane 2.17.0+)
+      operationId: getBulkJobStatus
+      tags:
+      - Logging
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: Job identifier returned from a bulk operation
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of job history entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatus'
+        '404':
+          description: Job not found
+components:
+  schemas:
+    JobStatus:
+      type: array
+      items:
+        type: object
+        properties:
+          jobId:
+            type: string
+          status:
+            type: string
+          message:
+            type: string
+          timestamp:
+            type: string
+            format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

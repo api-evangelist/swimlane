@@ -1,0 +1,154 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Users API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Users
+  description: User management endpoints
+paths:
+  /user:
+    get:
+      summary: List users
+      description: Retrieve a paginated list of all users
+      operationId: listUsers
+      tags:
+      - Users
+      parameters:
+      - name: size
+        in: query
+        description: Number of users to return per page
+        schema:
+          type: integer
+          default: 50
+      - name: pageNumber
+        in: query
+        description: Page number for pagination (zero-based)
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+  /user/{id}:
+    get:
+      summary: Get user by ID
+      description: Retrieve a single user by their unique identifier
+      operationId: getUserById
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+  /user/search:
+    get:
+      summary: Search users by display name
+      description: Search users matching a display name query
+      operationId: searchUsers
+      tags:
+      - Users
+      parameters:
+      - name: query
+        in: query
+        required: true
+        description: Search term for user display name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of matching users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+        displayName:
+          type: string
+          description: User display name
+        email:
+          type: string
+          format: email
+          description: User email address
+        userName:
+          type: string
+          description: Username for login
+        roles:
+          type: array
+          items:
+            type: string
+          description: List of role identifiers assigned to the user
+        groups:
+          type: array
+          items:
+            type: string
+          description: List of group identifiers the user belongs to
+        isAdmin:
+          type: boolean
+          description: Whether the user has administrator privileges
+        active:
+          type: boolean
+          description: Whether the user account is active
+        disabled:
+          type: boolean
+          description: Whether the user account is disabled
+    UserList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        count:
+          type: integer
+          description: Total number of users matching the query
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Applications
+  description: Application (workspace) management endpoints
+paths:
+  /app:
+    get:
+      summary: List applications
+      description: Retrieve all applications accessible to the authenticated user
+      operationId: listApps
+      tags:
+      - Applications
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/App'
+  /app/{id}:
+    get:
+      summary: Get application by ID
+      description: Retrieve a single application by its unique identifier
+      operationId: getAppById
+      tags:
+      - Applications
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Application object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '404':
+          description: Application not found
+  /app/{appId}/history:
+    get:
+      summary: List application revisions
+      description: Retrieve all revision history for an application
+      operationId: listAppRevisions
+      tags:
+      - Applications
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of application revisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppRevision'
+  /app/{appId}/history/{revisionNumber}:
+    get:
+      summary: Get application revision
+      description: Retrieve a specific revision of an application
+      operationId: getAppRevision
+      tags:
+      - Applications
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        required: true
+        description: Revision number (positive whole number)
+        schema:
+          type: number
+          minimum: 1
+      responses:
+        '200':
+          description: Application revision object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppRevision'
+        '404':
+          description: Revision not found
+components:
+  schemas:
+    AppRevision:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Revision identifier
+        revisionNumber:
+          type: number
+          description: Sequential revision number (positive whole number)
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who created this revision
+    Field:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique field identifier
+        name:
+          type: string
+          description: Field name
+        fieldType:
+          type: string
+          description: Type of the field (e.g. text, number, date, selection)
+        required:
+          type: boolean
+          description: Whether the field is required
+    App:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique application identifier
+        name:
+          type: string
+          description: Application name
+        description:
+          type: string
+          description: Application description
+        acronym:
+          type: string
+          description: Application acronym/prefix used for tracking IDs
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+          description: Fields defined in the application
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

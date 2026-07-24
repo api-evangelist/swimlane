@@ -1,0 +1,403 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Records API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Records
+  description: Record CRUD and search endpoints
+paths:
+  /app/{appId}/record/{recordId}:
+    get:
+      summary: Get record by ID
+      description: Retrieve a single record by its unique identifier
+      operationId: getRecord
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: recordId
+        in: path
+        required: true
+        description: Record identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Record object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '404':
+          description: Record not found
+  /app/{appId}/record/tracking/{trackingId}:
+    get:
+      summary: Get record by tracking ID
+      description: Retrieve a single record by its human-readable tracking identifier
+      operationId: getRecordByTrackingId
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: trackingId
+        in: path
+        required: true
+        description: Record tracking identifier (e.g., APP-12345)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Record object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '404':
+          description: Record not found
+  /app/{appId}/record/batch:
+    post:
+      summary: Bulk create records
+      description: Create multiple records in a single request
+      operationId: bulkCreateRecords
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkRecordRequest'
+      responses:
+        '200':
+          description: Bulk creation result
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: Bulk modify records
+      description: Modify multiple records matching filter criteria
+      operationId: bulkModifyRecords
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkModifyRequest'
+      responses:
+        '200':
+          description: Job ID for tracking the bulk operation
+          content:
+            text/plain:
+              schema:
+                type: string
+    delete:
+      summary: Bulk delete records
+      description: Delete multiple records matching filter criteria or by IDs
+      operationId: bulkDeleteRecords
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: array
+                  items:
+                    type: object
+                recordIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Job ID for tracking the bulk operation
+          content:
+            text/plain:
+              schema:
+                type: string
+  /app/{appId}/record/{recordId}/history:
+    get:
+      summary: List record revisions
+      description: Retrieve all revision history for a record
+      operationId: listRecordRevisions
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: recordId
+        in: path
+        required: true
+        description: Record identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of record revisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecordRevision'
+  /app/{appId}/record/{recordId}/history/{revisionNumber}:
+    get:
+      summary: Get record revision
+      description: Retrieve a specific revision of a record
+      operationId: getRecordRevision
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: recordId
+        in: path
+        required: true
+        description: Record identifier
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        required: true
+        description: Revision number (positive whole number)
+        schema:
+          type: number
+          minimum: 1
+      responses:
+        '200':
+          description: Record revision object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordRevision'
+        '404':
+          description: Revision not found
+  /app/{appId}/record/{recordId}/add-references:
+    post:
+      summary: Add record references
+      description: Add reference field links from one record to target records (requires Swimlane 2.15+)
+      operationId: addRecordReferences
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: recordId
+        in: path
+        required: true
+        description: Parent record identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddReferencesRequest'
+      responses:
+        '200':
+          description: References added successfully
+  /app/{appId}/record/{recordId}/{fieldId}/comment:
+    post:
+      summary: Add comment to record field
+      description: Post a comment to a comment-type field on a record
+      operationId: addRecordComment
+      tags:
+      - Records
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      - name: recordId
+        in: path
+        required: true
+        description: Record identifier
+        schema:
+          type: string
+      - name: fieldId
+        in: path
+        required: true
+        description: Comment field identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCommentRequest'
+      responses:
+        '200':
+          description: Comment added successfully
+components:
+  schemas:
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique record identifier
+        trackingFull:
+          type: string
+          description: Full tracking identifier (e.g., APP-12345)
+        applicationId:
+          type: string
+          description: Identifier of the application this record belongs to
+        values:
+          type: object
+          additionalProperties: true
+          description: Map of field IDs/names to values
+        createdDate:
+          type: string
+          format: date-time
+          description: Date and time the record was created
+        createdByUser:
+          type: object
+          properties:
+            id:
+              type: string
+            displayName:
+              type: string
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the record was last modified
+    RecordRevision:
+      type: object
+      properties:
+        revisionNumber:
+          type: number
+          description: Sequential revision number
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who made the change
+    BulkRecordRequest:
+      type: array
+      items:
+        type: object
+        additionalProperties: true
+        description: Map of field names to values for a single record
+    BulkModifyRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            type: object
+          description: Filters to select records to modify
+        values:
+          type: object
+          additionalProperties: true
+          description: Field names and new values to apply
+    AddCommentRequest:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Comment text content
+        isRichText:
+          type: boolean
+          default: false
+          description: Whether the message uses rich text formatting
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation date of the comment
+    AddReferencesRequest:
+      type: object
+      required:
+      - fieldId
+      - targetRecordIds
+      properties:
+        fieldId:
+          type: string
+          description: Target reference field identifier
+        targetRecordIds:
+          type: array
+          items:
+            type: string
+          description: Collection of record IDs to add as references
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

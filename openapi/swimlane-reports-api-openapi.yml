@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Reports API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Reports
+  description: Report management and execution endpoints
+paths:
+  /reports/app/{appId}:
+    get:
+      summary: List reports for application
+      description: Retrieve all reports defined for a specific application
+      operationId: listReports
+      tags:
+      - Reports
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: Application identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Report'
+  /reports/{reportId}:
+    get:
+      summary: Get report by ID
+      description: Retrieve a single report and execute it to get results
+      operationId: getReport
+      tags:
+      - Reports
+      parameters:
+      - name: reportId
+        in: path
+        required: true
+        description: Report identifier
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return (must be >= 0)
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Report with results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        '404':
+          description: Report not found
+components:
+  schemas:
+    Report:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique report identifier
+        name:
+          type: string
+          description: Report name
+        applicationId:
+          type: string
+          description: Identifier of the application this report belongs to
+        filters:
+          type: array
+          items:
+            type: object
+          description: Report filter criteria
+        columns:
+          type: array
+          items:
+            type: string
+          description: Field columns included in report results
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

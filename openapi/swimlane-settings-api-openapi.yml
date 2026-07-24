@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Settings API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Settings
+  description: Server settings and configuration
+paths:
+  /settings:
+    get:
+      summary: Get server settings
+      description: Retrieve server settings and version information
+      operationId: getSettings
+      security: []
+      tags:
+      - Settings
+      responses:
+        '200':
+          description: Server settings object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+components:
+  schemas:
+    Settings:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: 'API version string in format: <product>+<build>+<number>'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform

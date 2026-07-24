@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST Applications Tasks API
+  description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: 10.x
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+- url: https://{instance}.swimlane.app/api
+  variables:
+    instance:
+      default: your-instance
+      description: Your Swimlane instance hostname prefix
+security:
+- BearerAuth: []
+- PrivateTokenAuth: []
+tags:
+- name: Tasks
+  description: Task management and execution endpoints
+paths:
+  /task/{id}:
+    get:
+      summary: Get task by ID
+      description: Retrieve a single task by its identifier
+      operationId: getTask
+      tags:
+      - Tasks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Task identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Task not found
+  /task/light:
+    get:
+      summary: List tasks (lightweight)
+      description: Retrieve a lightweight list of all tasks with minimal data
+      operationId: listTasksLight
+      tags:
+      - Tasks
+      responses:
+        '200':
+          description: List of tasks with id and name only
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+  /task/execute/record:
+    post:
+      summary: Execute task against record
+      description: Execute a task action against a specific record
+      operationId: executeTaskOnRecord
+      tags:
+      - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskExecuteRequest'
+      responses:
+        '200':
+          description: Task execution result
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task identifier
+        name:
+          type: string
+          description: Task name
+        taskType:
+          type: string
+          description: Type of task
+    TaskExecuteRequest:
+      type: object
+      required:
+      - taskId
+      - record
+      properties:
+        taskId:
+          type: string
+          description: The task identifier to execute
+        record:
+          type: object
+          additionalProperties: true
+          description: The raw record data to pass to the task
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform
