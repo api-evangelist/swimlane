@@ -9,7 +9,20 @@ description: >-
   The REST API supports bearer token and personal access token (PAT) authentication
   and exposes endpoints for users, roles, records, applications, playbooks, and more.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/swimlane.png
 url: https://raw.githubusercontent.com/api-evangelist/swimlane/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -24,69 +37,152 @@ tags:
   - Security Operations
   - Agentic AI
 apis:
-  - aid: swimlane:swimlane-rest-api
-    name: Swimlane REST API
-    description: >-
-      The Swimlane REST API allows programmatic access to the Swimlane platform,
-      supporting management of users, roles, records, applications, playbooks,
-      cases, and alerts. Authentication is via bearer tokens generated from user
-      profile API token settings or personal access tokens (PAT). The embedded
-      Swagger/OpenAPI UI is available at /api/swagger on each instance.
-    humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
-    baseURL: https://{your-instance}.swimlane.app/api
-    tags:
-      - REST API
-      - Security
-      - SOAR
-      - Playbooks
-      - Case Management
-    properties:
-      - type: Documentation
-        url: https://docs.swimlane.com/user-guide-10x/rest-api
-      - type: OpenAPI
-        url: https://{your-instance}.swimlane.app/api/swagger
-    contact:
-      - FN: Swimlane Support
-        url: https://swimlane.com/support/
-  - aid: swimlane:swimlane-turbine-api
-    name: Swimlane Turbine API
-    description: >-
-      The Swimlane Turbine API provides access to the cloud-native Turbine platform,
-      enabling integration with 500+ security tools and connectors. The Turbine API
-      connector supports generic API requests to any Turbine instance with username/
-      password or personal access token authentication.
-    humanURL: https://docs.swimlane.com/connectors/swimlane-turbine-api
-    baseURL: https://{host}.swimlane.app/api
-    tags:
-      - Turbine
-      - Cloud-Native
-      - Integrations
-      - Connectors
-      - Agentic AI
-    properties:
-      - type: Documentation
-        url: https://docs.swimlane.com/connectors/swimlane-turbine-api
-    contact:
-      - FN: Swimlane Support
-        url: https://swimlane.com/support/
-  - aid: swimlane:swimlane-scim-api
-    name: Swimlane SCIM API
-    description: >-
-      Swimlane provides a SCIM v2 API for user lifecycle management and provisioning
-      on Business plans. The SCIM endpoint uses a separately generated bearer token
-      for authentication and enables automated user provisioning and deprovisioning.
-    humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
-    baseURL: https://{your-instance}.swimlane.app/api/scim/v2
-    tags:
-      - SCIM
-      - User Provisioning
-      - Identity Management
-    properties:
-      - type: Documentation
-        url: https://docs.swimlane.com/user-guide-10x/rest-api
-    contact:
-      - FN: Swimlane Support
-        url: https://swimlane.com/support/
+- aid: swimlane:swimlane-turbine-api
+  name: Swimlane Turbine API
+  description: >-
+    The Swimlane Turbine API provides access to the cloud-native Turbine platform, enabling integration
+    with 500+ security tools and connectors. The Turbine API connector supports generic API requests to
+    any Turbine instance with username/ password or personal access token authentication.
+  humanURL: https://docs.swimlane.com/connectors/swimlane-turbine-api
+  baseURL: https://{host}.swimlane.app/api
+  tags:
+  - Turbine
+  - Cloud-Native
+  - Integrations
+  - Connectors
+  - Agentic AI
+  properties:
+  - type: Documentation
+    url: https://docs.swimlane.com/connectors/swimlane-turbine-api
+  contact:
+  - FN: Swimlane Support
+    url: https://swimlane.com/support/
+- aid: swimlane:swimlane-scim-api
+  name: Swimlane SCIM API
+  description: >-
+    Swimlane provides a SCIM v2 API for user lifecycle management and provisioning on Business plans.
+    The SCIM endpoint uses a separately generated bearer token for authentication and enables automated
+    user provisioning and deprovisioning.
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api/scim/v2
+  tags:
+  - SCIM
+  - User Provisioning
+  - Identity Management
+  properties:
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+  contact:
+  - FN: Swimlane Support
+    url: https://swimlane.com/support/
+- aid: swimlane:swimlane-applications-api
+  name: Swimlane Applications API
+  description: Application (workspace) management endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-applications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-authentication-api
+  name: Swimlane Authentication API
+  description: Endpoints for obtaining and managing authentication tokens
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-groups-api
+  name: Swimlane Groups API
+  description: Group management endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-logging-api
+  name: Swimlane Logging API
+  description: Job logging and status endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Logging
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-logging-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-records-api
+  name: Swimlane Records API
+  description: Record CRUD and search endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Records
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-records-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-reports-api
+  name: Swimlane Reports API
+  description: Report management and execution endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-settings-api
+  name: Swimlane Settings API
+  description: Server settings and configuration
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-tasks-api
+  name: Swimlane Tasks API
+  description: Task management and execution endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
+- aid: swimlane:swimlane-users-api
+  name: Swimlane Users API
+  description: User management endpoints
+  humanURL: https://docs.swimlane.com/user-guide-10x/rest-api
+  baseURL: https://{your-instance}.swimlane.app/api
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/swimlane-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.swimlane.com/user-guide-10x/rest-api
 common:
   - type: AgenticAccess
     url: agentic-access/swimlane-agentic-access.yml
