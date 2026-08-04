@@ -1,0 +1,30 @@
+{
+  "provider": "swimlane",
+  "sources": [
+    "swimlane-applications-api-openapi.yml",
+    "swimlane-authentication-api-openapi.yml",
+    "swimlane-groups-api-openapi.yml",
+    "swimlane-logging-api-openapi.yml",
+    "swimlane-records-api-openapi.yml",
+    "swimlane-reports-api-openapi.yml",
+    "swimlane-settings-api-openapi.yml",
+    "swimlane-tasks-api-openapi.yml",
+    "swimlane-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "swimlane-applications-api-openapi.yml",
+    "swimlane-authentication-api-openapi.yml",
+    "swimlane-groups-api-openapi.yml",
+    "swimlane-logging-api-openapi.yml",
+    "swimlane-records-api-openapi.yml",
+    "swimlane-reports-api-openapi.yml",
+    "swimlane-settings-api-openapi.yml",
+    "swimlane-tasks-api-openapi.yml",
+    "swimlane-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

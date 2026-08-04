@@ -1,0 +1,1132 @@
+openapi: 3.0.3
+info:
+  title: Swimlane REST API
+  description: >-
+    The Swimlane REST API allows programmatic access to the Swimlane platform,
+    supporting management of users, roles, records, applications, playbooks,
+    cases, and alerts. Authentication is via bearer tokens generated from user
+    profile API token settings or personal access tokens (PAT). The embedded
+    Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
+  version: "10.x"
+  contact:
+    name: Swimlane Support
+    url: https://swimlane.com/support/
+  license:
+    name: Commercial
+    url: https://swimlane.com/
+servers:
+  - url: https://{instance}.swimlane.app/api
+    variables:
+      instance:
+        default: your-instance
+        description: Your Swimlane instance hostname prefix
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT bearer token obtained from the user/login endpoint
+    PrivateTokenAuth:
+      type: apiKey
+      in: header
+      name: Private-Token
+      description: Personal Access Token (PAT) generated within the Swimlane platform
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - userName
+        - password
+      properties:
+        userName:
+          type: string
+          description: Swimlane username
+        password:
+          type: string
+          format: password
+          description: Swimlane password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT authentication token
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+        displayName:
+          type: string
+          description: User display name
+        email:
+          type: string
+          format: email
+          description: User email address
+        userName:
+          type: string
+          description: Username for login
+        roles:
+          type: array
+          items:
+            type: string
+          description: List of role identifiers assigned to the user
+        groups:
+          type: array
+          items:
+            type: string
+          description: List of group identifiers the user belongs to
+        isAdmin:
+          type: boolean
+          description: Whether the user has administrator privileges
+        active:
+          type: boolean
+          description: Whether the user account is active
+        disabled:
+          type: boolean
+          description: Whether the user account is disabled
+    UserList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        count:
+          type: integer
+          description: Total number of users matching the query
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique group identifier
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
+        users:
+          type: array
+          items:
+            type: string
+          description: List of user identifiers in this group
+    GroupList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        count:
+          type: integer
+          description: Total number of groups
+    App:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique application identifier
+        name:
+          type: string
+          description: Application name
+        description:
+          type: string
+          description: Application description
+        acronym:
+          type: string
+          description: Application acronym/prefix used for tracking IDs
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+          description: Fields defined in the application
+    Field:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique field identifier
+        name:
+          type: string
+          description: Field name
+        fieldType:
+          type: string
+          description: Type of the field (e.g. text, number, date, selection)
+        required:
+          type: boolean
+          description: Whether the field is required
+    AppRevision:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Revision identifier
+        revisionNumber:
+          type: number
+          description: Sequential revision number (positive whole number)
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who created this revision
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique record identifier
+        trackingFull:
+          type: string
+          description: Full tracking identifier (e.g., APP-12345)
+        applicationId:
+          type: string
+          description: Identifier of the application this record belongs to
+        values:
+          type: object
+          additionalProperties: true
+          description: Map of field IDs/names to values
+        createdDate:
+          type: string
+          format: date-time
+          description: Date and time the record was created
+        createdByUser:
+          type: object
+          properties:
+            id:
+              type: string
+            displayName:
+              type: string
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the record was last modified
+    RecordList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+        total:
+          type: integer
+          description: Total number of results
+    RecordRevision:
+      type: object
+      properties:
+        revisionNumber:
+          type: number
+          description: Sequential revision number
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who made the change
+    BulkRecordRequest:
+      type: array
+      items:
+        type: object
+        additionalProperties: true
+        description: Map of field names to values for a single record
+    BulkModifyRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            type: object
+          description: Filters to select records to modify
+        values:
+          type: object
+          additionalProperties: true
+          description: Field names and new values to apply
+    SearchRequest:
+      type: object
+      properties:
+        applicationIds:
+          type: array
+          items:
+            type: string
+          description: Application IDs to search within
+        filters:
+          type: array
+          items:
+            type: object
+          description: Filter criteria
+        keywords:
+          type: array
+          items:
+            type: string
+          description: Search keywords
+        pageSize:
+          type: integer
+          description: Number of results per page
+        offset:
+          type: integer
+          description: Offset for pagination
+        sort:
+          type: object
+          properties:
+            fieldId:
+              type: string
+            order:
+              type: string
+              enum: [ascending, descending]
+        columns:
+          type: array
+          items:
+            type: string
+          description: Field names to populate in results
+    Report:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique report identifier
+        name:
+          type: string
+          description: Report name
+        applicationId:
+          type: string
+          description: Identifier of the application this report belongs to
+        filters:
+          type: array
+          items:
+            type: object
+          description: Report filter criteria
+        columns:
+          type: array
+          items:
+            type: string
+          description: Field columns included in report results
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task identifier
+        name:
+          type: string
+          description: Task name
+        taskType:
+          type: string
+          description: Type of task
+    TaskExecuteRequest:
+      type: object
+      required:
+        - taskId
+        - record
+      properties:
+        taskId:
+          type: string
+          description: The task identifier to execute
+        record:
+          type: object
+          additionalProperties: true
+          description: The raw record data to pass to the task
+    AddReferencesRequest:
+      type: object
+      required:
+        - fieldId
+        - targetRecordIds
+      properties:
+        fieldId:
+          type: string
+          description: Target reference field identifier
+        targetRecordIds:
+          type: array
+          items:
+            type: string
+          description: Collection of record IDs to add as references
+    AddCommentRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Comment text content
+        isRichText:
+          type: boolean
+          default: false
+          description: Whether the message uses rich text formatting
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation date of the comment
+    JobStatus:
+      type: array
+      items:
+        type: object
+        properties:
+          jobId:
+            type: string
+          status:
+            type: string
+          message:
+            type: string
+          timestamp:
+            type: string
+            format: date-time
+    Settings:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: "API version string in format: <product>+<build>+<number>"
+    Error:
+      type: object
+      properties:
+        ErrorCode:
+          type: integer
+          description: Numeric error code
+        Argument:
+          type: string
+          description: Additional error context
+        Entity:
+          type: string
+          description: Entity type related to the error
+security:
+  - BearerAuth: []
+  - PrivateTokenAuth: []
+paths:
+  /settings:
+    get:
+      summary: Get server settings
+      description: Retrieve server settings and version information
+      operationId: getSettings
+      security: []
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: Server settings object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+  /user/login:
+    post:
+      summary: Authenticate user
+      description: Authenticate using username and password to obtain a JWT token
+      operationId: loginUser
+      security: []
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              userName: admin
+              password: s3cr3tP@ssw0rd
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/authorize:
+    get:
+      summary: Get authenticated user profile
+      description: Retrieve the profile of the currently authenticated user
+      operationId: authorizeUser
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: Authenticated user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Not authenticated
+  /user:
+    get:
+      summary: List users
+      description: Retrieve a paginated list of all users
+      operationId: listUsers
+      tags:
+        - Users
+      parameters:
+        - name: size
+          in: query
+          description: Number of users to return per page
+          schema:
+            type: integer
+            default: 50
+        - name: pageNumber
+          in: query
+          description: Page number for pagination (zero-based)
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+  /user/{id}:
+    get:
+      summary: Get user by ID
+      description: Retrieve a single user by their unique identifier
+      operationId: getUserById
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+  /user/search:
+    get:
+      summary: Search users by display name
+      description: Search users matching a display name query
+      operationId: searchUsers
+      tags:
+        - Users
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search term for user display name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /groups:
+    get:
+      summary: List groups
+      description: Retrieve a paginated list of all groups
+      operationId: listGroups
+      tags:
+        - Groups
+      parameters:
+        - name: size
+          in: query
+          description: Number of groups per page
+          schema:
+            type: integer
+            default: 50
+        - name: pageNumber
+          in: query
+          description: Page number for pagination (zero-based)
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupList'
+  /groups/{id}:
+    get:
+      summary: Get group by ID
+      description: Retrieve a single group by its unique identifier
+      operationId: getGroupById
+      tags:
+        - Groups
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Group object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+  /groups/lookup:
+    get:
+      summary: Lookup group by name
+      description: Find groups matching a given name
+      operationId: lookupGroupByName
+      tags:
+        - Groups
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Group name to search for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+  /app:
+    get:
+      summary: List applications
+      description: Retrieve all applications accessible to the authenticated user
+      operationId: listApps
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/App'
+  /app/{id}:
+    get:
+      summary: Get application by ID
+      description: Retrieve a single application by its unique identifier
+      operationId: getAppById
+      tags:
+        - Applications
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Application object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '404':
+          description: Application not found
+  /app/{appId}/history:
+    get:
+      summary: List application revisions
+      description: Retrieve all revision history for an application
+      operationId: listAppRevisions
+      tags:
+        - Applications
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of application revisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppRevision'
+  /app/{appId}/history/{revisionNumber}:
+    get:
+      summary: Get application revision
+      description: Retrieve a specific revision of an application
+      operationId: getAppRevision
+      tags:
+        - Applications
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: revisionNumber
+          in: path
+          required: true
+          description: Revision number (positive whole number)
+          schema:
+            type: number
+            minimum: 1
+      responses:
+        '200':
+          description: Application revision object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppRevision'
+        '404':
+          description: Revision not found
+  /app/{appId}/record/{recordId}:
+    get:
+      summary: Get record by ID
+      description: Retrieve a single record by its unique identifier
+      operationId: getRecord
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          description: Record identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Record object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '404':
+          description: Record not found
+  /app/{appId}/record/tracking/{trackingId}:
+    get:
+      summary: Get record by tracking ID
+      description: Retrieve a single record by its human-readable tracking identifier
+      operationId: getRecordByTrackingId
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: trackingId
+          in: path
+          required: true
+          description: Record tracking identifier (e.g., APP-12345)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Record object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '404':
+          description: Record not found
+  /app/{appId}/record/batch:
+    post:
+      summary: Bulk create records
+      description: Create multiple records in a single request
+      operationId: bulkCreateRecords
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkRecordRequest'
+      responses:
+        '200':
+          description: Bulk creation result
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: Bulk modify records
+      description: Modify multiple records matching filter criteria
+      operationId: bulkModifyRecords
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkModifyRequest'
+      responses:
+        '200':
+          description: Job ID for tracking the bulk operation
+          content:
+            text/plain:
+              schema:
+                type: string
+    delete:
+      summary: Bulk delete records
+      description: Delete multiple records matching filter criteria or by IDs
+      operationId: bulkDeleteRecords
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: array
+                  items:
+                    type: object
+                recordIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Job ID for tracking the bulk operation
+          content:
+            text/plain:
+              schema:
+                type: string
+  /app/{appId}/record/{recordId}/history:
+    get:
+      summary: List record revisions
+      description: Retrieve all revision history for a record
+      operationId: listRecordRevisions
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          description: Record identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of record revisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecordRevision'
+  /app/{appId}/record/{recordId}/history/{revisionNumber}:
+    get:
+      summary: Get record revision
+      description: Retrieve a specific revision of a record
+      operationId: getRecordRevision
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          description: Record identifier
+          schema:
+            type: string
+        - name: revisionNumber
+          in: path
+          required: true
+          description: Revision number (positive whole number)
+          schema:
+            type: number
+            minimum: 1
+      responses:
+        '200':
+          description: Record revision object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordRevision'
+        '404':
+          description: Revision not found
+  /app/{appId}/record/{recordId}/add-references:
+    post:
+      summary: Add record references
+      description: Add reference field links from one record to target records (requires Swimlane 2.15+)
+      operationId: addRecordReferences
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          description: Parent record identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddReferencesRequest'
+      responses:
+        '200':
+          description: References added successfully
+  /app/{appId}/record/{recordId}/{fieldId}/comment:
+    post:
+      summary: Add comment to record field
+      description: Post a comment to a comment-type field on a record
+      operationId: addRecordComment
+      tags:
+        - Records
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          description: Record identifier
+          schema:
+            type: string
+        - name: fieldId
+          in: path
+          required: true
+          description: Comment field identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCommentRequest'
+      responses:
+        '200':
+          description: Comment added successfully
+  /reports/app/{appId}:
+    get:
+      summary: List reports for application
+      description: Retrieve all reports defined for a specific application
+      operationId: listReports
+      tags:
+        - Reports
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: Application identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Report'
+  /reports/{reportId}:
+    get:
+      summary: Get report by ID
+      description: Retrieve a single report and execute it to get results
+      operationId: getReport
+      tags:
+        - Reports
+      parameters:
+        - name: reportId
+          in: path
+          required: true
+          description: Report identifier
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of results to return (must be >= 0)
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: Report with results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        '404':
+          description: Report not found
+  /task/{id}:
+    get:
+      summary: Get task by ID
+      description: Retrieve a single task by its identifier
+      operationId: getTask
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Task not found
+  /task/light:
+    get:
+      summary: List tasks (lightweight)
+      description: Retrieve a lightweight list of all tasks with minimal data
+      operationId: listTasksLight
+      tags:
+        - Tasks
+      responses:
+        '200':
+          description: List of tasks with id and name only
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+  /task/execute/record:
+    post:
+      summary: Execute task against record
+      description: Execute a task action against a specific record
+      operationId: executeTaskOnRecord
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskExecuteRequest'
+      responses:
+        '200':
+          description: Task execution result
+          content:
+            application/json:
+              schema:
+                type: object
+  /logging/job/{jobId}:
+    get:
+      summary: Get bulk job status
+      description: Check the status of a bulk operation job (requires Swimlane 2.17.0+)
+      operationId: getBulkJobStatus
+      tags:
+        - Logging
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          description: Job identifier returned from a bulk operation
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of job history entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatus'
+        '404':
+          description: Job not found
+tags:
+  - name: Authentication
+    description: Endpoints for obtaining and managing authentication tokens
+  - name: Settings
+    description: Server settings and configuration
+  - name: Users
+    description: User management endpoints
+  - name: Groups
+    description: Group management endpoints
+  - name: Applications
+    description: Application (workspace) management endpoints
+  - name: Records
+    description: Record CRUD and search endpoints
+  - name: Reports
+    description: Report management and execution endpoints
+  - name: Tasks
+    description: Task management and execution endpoints
+  - name: Logging
+    description: Job logging and status endpoints
