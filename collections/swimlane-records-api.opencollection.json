@@ -1,0 +1,263 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications Records API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get record by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/:recordId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Record identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a single record by its unique identifier"
+        },
+        {
+          "info": {
+            "name": "Get record by tracking ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/tracking/:trackingId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "trackingId",
+                "value": "",
+                "type": "path",
+                "description": "Record tracking identifier (e.g., APP-12345)"
+              }
+            ]
+          },
+          "docs": "Retrieve a single record by its human-readable tracking identifier"
+        },
+        {
+          "info": {
+            "name": "Bulk create records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/batch",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple records in a single request"
+        },
+        {
+          "info": {
+            "name": "Bulk modify records",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/batch",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify multiple records matching filter criteria"
+        },
+        {
+          "info": {
+            "name": "Bulk delete records",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/batch",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete multiple records matching filter criteria or by IDs"
+        },
+        {
+          "info": {
+            "name": "List record revisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/:recordId/history",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Record identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all revision history for a record"
+        },
+        {
+          "info": {
+            "name": "Get record revision",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/:recordId/history/:revisionNumber",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Record identifier"
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "Revision number (positive whole number)"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific revision of a record"
+        },
+        {
+          "info": {
+            "name": "Add record references",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/:recordId/add-references",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Parent record identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add reference field links from one record to target records (requires Swimlane 2.15+)"
+        },
+        {
+          "info": {
+            "name": "Add comment to record field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/record/:recordId/:fieldId/comment",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Record identifier"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "Comment field identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post a comment to a comment-type field on a record"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

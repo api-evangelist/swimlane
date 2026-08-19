@@ -1,0 +1,432 @@
+{
+  "item": [
+    {
+      "id": "c013159e-cabb-43b2-8008-aa3bdc8ae2a2",
+      "name": "Users",
+      "description": {
+        "content": "User management endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b3398f53-3258-4a51-b9c7-34d9b5a8ef43",
+          "name": "List users",
+          "request": {
+            "name": "List users",
+            "description": {
+              "content": "Retrieve a paginated list of all users",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Number of users to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "0",
+                  "description": "Page number for pagination (zero-based)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "983fda07-3994-4d53-a724-7a16c65bd7bf",
+              "name": "List of users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"displayName\": \"string\",\n      \"email\": \"nNQKLsB9@BQstfRbkQyiGaRBWNzQdxwMqs.fop\",\n      \"userName\": \"string\",\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ],\n      \"groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isAdmin\": true,\n      \"active\": true,\n      \"disabled\": false\n    },\n    {\n      \"id\": \"string\",\n      \"displayName\": \"string\",\n      \"email\": \"JVDhPKRYrCaGRar@RkucBAO.wqgh\",\n      \"userName\": \"string\",\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ],\n      \"groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isAdmin\": false,\n      \"active\": true,\n      \"disabled\": true\n    }\n  ],\n  \"count\": 6137\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92e20fbe-99a0-424f-8685-1c2363033d99",
+          "name": "Get user by ID",
+          "request": {
+            "name": "Get user by ID",
+            "description": {
+              "content": "Retrieve a single user by their unique identifier",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) User identifier"
+                },
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e64f269d-df51-4e2b-8208-55f4f3fb3d8f",
+              "name": "User object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) User identifier"
+                    },
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"email\": \"9uqjAwIef@vDlIaRZvyNmNpYOadAXDI.xf\",\n  \"userName\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ],\n  \"groups\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isAdmin\": false,\n  \"active\": true,\n  \"disabled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77dab929-ddd3-4054-a9b7-86f6ce515a49",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) User identifier"
+                    },
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5481569-6694-4d83-90fc-bdc445063cf5",
+          "name": "Search users by display name",
+          "request": {
+            "name": "Search users by display name",
+            "description": {
+              "content": "Search users matching a display name query",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search term for user display name"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b58aa3b-0a7b-402c-8fa9-d5e26ce97961",
+              "name": "List of matching users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"displayName\": \"string\",\n    \"email\": \"D5rNykF@LO.vg\",\n    \"userName\": \"string\",\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isAdmin\": true,\n    \"active\": true,\n    \"disabled\": false\n  },\n  {\n    \"id\": \"string\",\n    \"displayName\": \"string\",\n    \"email\": \"Mz2@KXd.gctw\",\n    \"userName\": \"string\",\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ],\n    \"groups\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isAdmin\": true,\n    \"active\": true,\n    \"disabled\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Swimlane instance hostname prefix",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.swimlane.app/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a008372c-29e0-464f-8b31-b333205ab04b",
+    "name": "Swimlane REST Applications Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.\n\nContact Support:\n Name: Swimlane Support",
+      "type": "text/plain"
+    }
+  }
+}

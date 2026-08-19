@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications Reports API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reports for application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/reports/app/:appId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all reports defined for a specific application"
+        },
+        {
+          "info": {
+            "name": "Get report by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/reports/:reportId",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path",
+                "description": "Report identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (must be >= 0)"
+              }
+            ]
+          },
+          "docs": "Retrieve a single report and execute it to get results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

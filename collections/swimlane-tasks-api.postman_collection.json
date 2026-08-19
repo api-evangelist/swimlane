@@ -1,0 +1,423 @@
+{
+  "item": [
+    {
+      "id": "fd33559e-02e1-4a1e-a6ed-aa93ab18bc3c",
+      "name": "Tasks",
+      "description": {
+        "content": "Task management and execution endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c6f0f29-13d6-4284-9b06-92c0def0ce54",
+          "name": "Get task by ID",
+          "request": {
+            "name": "Get task by ID",
+            "description": {
+              "content": "Retrieve a single task by its identifier",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "task",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Task identifier"
+                },
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89d605ff-7eb2-4cb3-9377-ceb42af358b7",
+              "name": "Task object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "task",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Task identifier"
+                    },
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"taskType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65ffeaac-6a00-4c16-9e99-7e17c7458abc",
+              "name": "Task not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "task",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Task identifier"
+                    },
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7ff342e-604b-40fc-b4f1-28a3f3ce9652",
+          "name": "List tasks (lightweight)",
+          "request": {
+            "name": "List tasks (lightweight)",
+            "description": {
+              "content": "Retrieve a lightweight list of all tasks with minimal data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "task",
+                "light"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9df8cac5-d415-44e8-a095-ada38c1b5250",
+              "name": "List of tasks with id and name only",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "task",
+                    "light"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ff52b18-7e96-4539-97cf-04570ea68b01",
+          "name": "Execute task against record",
+          "request": {
+            "name": "Execute task against record",
+            "description": {
+              "content": "Execute a task action against a specific record",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "task",
+                "execute",
+                "record"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"taskId\": \"<string>\",\n  \"record\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "03689556-002d-427b-8436-6205ce5ca63f",
+              "name": "Task execution result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "task",
+                    "execute",
+                    "record"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"taskId\": \"<string>\",\n  \"record\": {\n    \"key_0\": 6673.8971809622035,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Swimlane instance hostname prefix",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.swimlane.app/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ce7e9fda-7869-4e75-8cef-09c0e62d9deb",
+    "name": "Swimlane REST Applications Tasks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.\n\nContact Support:\n Name: Swimlane Support",
+      "type": "text/plain"
+    }
+  }
+}

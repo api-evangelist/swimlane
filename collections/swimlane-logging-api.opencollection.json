@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications Logging API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bulk job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/logging/job/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier returned from a bulk operation"
+              }
+            ]
+          },
+          "docs": "Check the status of a bulk operation job (requires Swimlane 2.17.0+)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

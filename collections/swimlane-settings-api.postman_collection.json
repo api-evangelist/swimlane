@@ -1,0 +1,142 @@
+{
+  "item": [
+    {
+      "id": "59c01c89-9d67-4e01-b4ed-1e6804737d29",
+      "name": "Settings",
+      "description": {
+        "content": "Server settings and configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f67ef90-f9c1-44f9-9958-83b223c6a2e8",
+          "name": "Get server settings",
+          "request": {
+            "name": "Get server settings",
+            "description": {
+              "content": "Retrieve server settings and version information",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "886ae63d-536a-4094-9e7c-2dde51d99f36",
+              "name": "Server settings object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Swimlane instance hostname prefix",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.swimlane.app/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "be77fe6b-9b71-4cb7-9510-71731f28dd16",
+    "name": "Swimlane REST Applications Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.\n\nContact Support:\n Name: Swimlane Support",
+      "type": "text/plain"
+    }
+  }
+}

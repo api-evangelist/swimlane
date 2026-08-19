@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications Groups API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/groups",
+            "params": [
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of groups per page"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (zero-based)"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all groups"
+        },
+        {
+          "info": {
+            "name": "Get group by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a single group by its unique identifier"
+        },
+        {
+          "info": {
+            "name": "Lookup group by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/groups/lookup",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Group name to search for"
+              }
+            ]
+          },
+          "docs": "Find groups matching a given name"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

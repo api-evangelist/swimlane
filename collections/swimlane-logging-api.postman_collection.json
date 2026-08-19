@@ -1,0 +1,215 @@
+{
+  "item": [
+    {
+      "id": "769609fe-9c2a-4f3e-b7a7-d839035c8aa2",
+      "name": "Logging",
+      "description": {
+        "content": "Job logging and status endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ead5943a-a753-4fa1-8dad-72013b0fe58e",
+          "name": "Get bulk job status",
+          "request": {
+            "name": "Get bulk job status",
+            "description": {
+              "content": "Check the status of a bulk operation job (requires Swimlane 2.17.0+)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logging",
+                "job",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) Job identifier returned from a bulk operation"
+                },
+                {
+                  "description": "Your Swimlane instance hostname prefix",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d77b4e32-ec67-4c97-b5cf-c9cecfb9feb5",
+              "name": "List of job history entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logging",
+                    "job",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) Job identifier returned from a bulk operation"
+                    },
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"jobId\": \"string\",\n    \"status\": \"string\",\n    \"message\": \"string\",\n    \"timestamp\": \"1987-07-19T08:46:56.756Z\"\n  },\n  {\n    \"jobId\": \"string\",\n    \"status\": \"string\",\n    \"message\": \"string\",\n    \"timestamp\": \"1994-04-10T08:55:46.741Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65f6ea7f-231a-4df4-926f-4135e4ba9289",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logging",
+                    "job",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) Job identifier returned from a bulk operation"
+                    },
+                    {
+                      "description": "Your Swimlane instance hostname prefix",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Swimlane instance hostname prefix",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.swimlane.app/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "25ce1e78-266e-4eb5-a154-e67bddf3b665",
+    "name": "Swimlane REST Applications Logging API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.\n\nContact Support:\n Name: Swimlane Support",
+      "type": "text/plain"
+    }
+  }
+}

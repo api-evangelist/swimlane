@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications Authentication API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authenticate user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.swimlane.app/api/user/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticate using username and password to obtain a JWT token"
+        },
+        {
+          "info": {
+            "name": "Get authenticated user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/user/authorize"
+          },
+          "docs": "Retrieve the profile of the currently authenticated user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

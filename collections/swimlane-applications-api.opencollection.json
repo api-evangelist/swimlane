@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app"
+          },
+          "docs": "Retrieve all applications accessible to the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Get application by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a single application by its unique identifier"
+        },
+        {
+          "info": {
+            "name": "List application revisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/history",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all revision history for an application"
+        },
+        {
+          "info": {
+            "name": "Get application revision",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/app/:appId/history/:revisionNumber",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Application identifier"
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "Revision number (positive whole number)"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific revision of an application"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

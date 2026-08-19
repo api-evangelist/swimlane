@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swimlane REST Applications Tasks API",
+    "version": "10.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get task by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/task/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Task identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a single task by its identifier"
+        },
+        {
+          "info": {
+            "name": "List tasks (lightweight)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.swimlane.app/api/task/light"
+          },
+          "docs": "Retrieve a lightweight list of all tasks with minimal data"
+        },
+        {
+          "info": {
+            "name": "Execute task against record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.swimlane.app/api/task/execute/record",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a task action against a specific record"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
