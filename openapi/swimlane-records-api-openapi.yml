@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Swimlane REST Applications Records API
+  title: Swimlane REST Records API
   description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
   version: 10.x
   contact:
@@ -299,6 +299,22 @@ paths:
           description: Comment added successfully
 components:
   schemas:
+    AddCommentRequest:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Comment text content
+        isRichText:
+          type: boolean
+          default: false
+          description: Whether the message uses rich text formatting
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation date of the comment
     Record:
       type: object
       properties:
@@ -330,6 +346,32 @@ components:
           type: string
           format: date-time
           description: Date and time the record was last modified
+    BulkModifyRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            type: object
+          description: Filters to select records to modify
+        values:
+          type: object
+          additionalProperties: true
+          description: Field names and new values to apply
+    AddReferencesRequest:
+      type: object
+      required:
+      - fieldId
+      - targetRecordIds
+      properties:
+        fieldId:
+          type: string
+          description: Target reference field identifier
+        targetRecordIds:
+          type: array
+          items:
+            type: string
+          description: Collection of record IDs to add as references
     RecordRevision:
       type: object
       properties:
@@ -349,48 +391,6 @@ components:
         type: object
         additionalProperties: true
         description: Map of field names to values for a single record
-    BulkModifyRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            type: object
-          description: Filters to select records to modify
-        values:
-          type: object
-          additionalProperties: true
-          description: Field names and new values to apply
-    AddCommentRequest:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Comment text content
-        isRichText:
-          type: boolean
-          default: false
-          description: Whether the message uses rich text formatting
-        createdDate:
-          type: string
-          format: date-time
-          description: Creation date of the comment
-    AddReferencesRequest:
-      type: object
-      required:
-      - fieldId
-      - targetRecordIds
-      properties:
-        fieldId:
-          type: string
-          description: Target reference field identifier
-        targetRecordIds:
-          type: array
-          items:
-            type: string
-          description: Collection of record IDs to add as references
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Swimlane REST Applications Groups API
+  title: Swimlane REST Groups API
   description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
   version: 10.x
   contact:
@@ -97,16 +97,6 @@ paths:
                   $ref: '#/components/schemas/Group'
 components:
   schemas:
-    GroupList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Group'
-        count:
-          type: integer
-          description: Total number of groups
     Group:
       type: object
       properties:
@@ -124,6 +114,16 @@ components:
           items:
             type: string
           description: List of user identifiers in this group
+    GroupList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        count:
+          type: integer
+          description: Total number of groups
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Swimlane REST Applications Tasks API
+  title: Swimlane REST Tasks API
   description: The Swimlane REST API allows programmatic access to the Swimlane platform, supporting management of users, roles, records, applications, playbooks, cases, and alerts. Authentication is via bearer tokens generated from user profile API token settings or personal access tokens (PAT). The embedded Swagger/OpenAPI UI is available at /api/swagger on each Swimlane instance.
   version: 10.x
   contact:
@@ -88,18 +88,6 @@ paths:
                 type: object
 components:
   schemas:
-    Task:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique task identifier
-        name:
-          type: string
-          description: Task name
-        taskType:
-          type: string
-          description: Type of task
     TaskExecuteRequest:
       type: object
       required:
@@ -113,6 +101,18 @@ components:
           type: object
           additionalProperties: true
           description: The raw record data to pass to the task
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task identifier
+        name:
+          type: string
+          description: Task name
+        taskType:
+          type: string
+          description: Type of task
   securitySchemes:
     BearerAuth:
       type: http

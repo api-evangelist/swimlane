@@ -1,0 +1,32 @@
+# Front Door AI Index — swimlane — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: swimlane
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: swimlane.com
+  final_host: swimlane.com
+  ownership: own
+  owner: swimlane
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 131
+  host_score: 131
+  density: 47.0
+  words: 2787
+  tiers:
+    agentic: 42
+    core: 89
+    model: 0
+  ambiguous: 62
+  top_terms:
+    AI: 87
+    automation: 36
+    agentic: 27
+    agent: 22
+    AI agent: 13
+    intelligence: 4
+    gen ai: 2
+    prompts: 2
