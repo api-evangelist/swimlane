@@ -315,6 +315,33 @@ components:
           type: string
           format: date-time
           description: Creation date of the comment
+    AddReferencesRequest:
+      type: object
+      required:
+      - fieldId
+      - targetRecordIds
+      properties:
+        fieldId:
+          type: string
+          description: Target reference field identifier
+        targetRecordIds:
+          type: array
+          items:
+            type: string
+          description: Collection of record IDs to add as references
+    RecordRevision:
+      type: object
+      properties:
+        revisionNumber:
+          type: number
+          description: Sequential revision number
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who made the change
     Record:
       type: object
       properties:
@@ -346,6 +373,12 @@ components:
           type: string
           format: date-time
           description: Date and time the record was last modified
+    BulkRecordRequest:
+      type: array
+      items:
+        type: object
+        additionalProperties: true
+        description: Map of field names to values for a single record
     BulkModifyRequest:
       type: object
       properties:
@@ -358,39 +391,6 @@ components:
           type: object
           additionalProperties: true
           description: Field names and new values to apply
-    AddReferencesRequest:
-      type: object
-      required:
-      - fieldId
-      - targetRecordIds
-      properties:
-        fieldId:
-          type: string
-          description: Target reference field identifier
-        targetRecordIds:
-          type: array
-          items:
-            type: string
-          description: Collection of record IDs to add as references
-    RecordRevision:
-      type: object
-      properties:
-        revisionNumber:
-          type: number
-          description: Sequential revision number
-        modifiedDate:
-          type: string
-          format: date-time
-          description: Date and time the revision was created
-        modifiedBy:
-          type: string
-          description: User who made the change
-    BulkRecordRequest:
-      type: array
-      items:
-        type: object
-        additionalProperties: true
-        description: Map of field names to values for a single record
   securitySchemes:
     BearerAuth:
       type: http

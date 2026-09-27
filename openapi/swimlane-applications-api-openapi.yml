@@ -116,37 +116,6 @@ paths:
           description: Revision not found
 components:
   schemas:
-    AppRevision:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Revision identifier
-        revisionNumber:
-          type: number
-          description: Sequential revision number (positive whole number)
-        modifiedDate:
-          type: string
-          format: date-time
-          description: Date and time the revision was created
-        modifiedBy:
-          type: string
-          description: User who created this revision
-    Field:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique field identifier
-        name:
-          type: string
-          description: Field name
-        fieldType:
-          type: string
-          description: Type of the field (e.g. text, number, date, selection)
-        required:
-          type: boolean
-          description: Whether the field is required
     App:
       type: object
       properties:
@@ -167,6 +136,37 @@ components:
           items:
             $ref: '#/components/schemas/Field'
           description: Fields defined in the application
+    Field:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique field identifier
+        name:
+          type: string
+          description: Field name
+        fieldType:
+          type: string
+          description: Type of the field (e.g. text, number, date, selection)
+        required:
+          type: boolean
+          description: Whether the field is required
+    AppRevision:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Revision identifier
+        revisionNumber:
+          type: number
+          description: Sequential revision number (positive whole number)
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who created this revision
   securitySchemes:
     BearerAuth:
       type: http

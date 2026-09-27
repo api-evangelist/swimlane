@@ -48,6 +48,15 @@ tags:
   - Playbooks
   - Case Management
   - Security Operations
+  - AI Agents
+tags_raw:
+  - SOAR
+  - Security Orchestration
+  - Automation
+  - Incident Response
+  - Playbooks
+  - Case Management
+  - Security Operations
   - Agentic AI
 apis:
 - aid: swimlane:swimlane-turbine-api
@@ -63,7 +72,7 @@ apis:
   - Cloud-Native
   - Integration
   - Connectors
-  - Agentic AI
+  - AI Agents
   tags_raw:
   - Turbine
   - Cloud-Native
