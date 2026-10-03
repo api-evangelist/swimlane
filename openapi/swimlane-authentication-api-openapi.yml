@@ -70,18 +70,6 @@ paths:
           description: Not authenticated
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        ErrorCode:
-          type: integer
-          description: Numeric error code
-        Argument:
-          type: string
-          description: Additional error context
-        Entity:
-          type: string
-          description: Entity type related to the error
     User:
       type: object
       properties:
@@ -117,6 +105,26 @@ components:
         disabled:
           type: boolean
           description: Whether the user account is disabled
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT authentication token
+        user:
+          $ref: '#/components/schemas/User'
+    Error:
+      type: object
+      properties:
+        ErrorCode:
+          type: integer
+          description: Numeric error code
+        Argument:
+          type: string
+          description: Additional error context
+        Entity:
+          type: string
+          description: Entity type related to the error
     LoginRequest:
       type: object
       required:
@@ -130,14 +138,6 @@ components:
           type: string
           format: password
           description: Swimlane password
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: JWT authentication token
-        user:
-          $ref: '#/components/schemas/User'
   securitySchemes:
     BearerAuth:
       type: http
