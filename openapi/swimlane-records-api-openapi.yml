@@ -299,40 +299,39 @@ paths:
           description: Comment added successfully
 components:
   schemas:
-    BulkModifyRequest:
+    AddReferencesRequest:
       type: object
+      required:
+      - fieldId
+      - targetRecordIds
       properties:
-        filters:
+        fieldId:
+          type: string
+          description: Target reference field identifier
+        targetRecordIds:
           type: array
           items:
-            type: object
-          description: Filters to select records to modify
-        values:
-          type: object
-          additionalProperties: true
-          description: Field names and new values to apply
+            type: string
+          description: Collection of record IDs to add as references
     BulkRecordRequest:
       type: array
       items:
         type: object
         additionalProperties: true
         description: Map of field names to values for a single record
-    AddCommentRequest:
+    RecordRevision:
       type: object
-      required:
-      - message
       properties:
-        message:
-          type: string
-          description: Comment text content
-        isRichText:
-          type: boolean
-          default: false
-          description: Whether the message uses rich text formatting
-        createdDate:
+        revisionNumber:
+          type: number
+          description: Sequential revision number
+        modifiedDate:
           type: string
           format: date-time
-          description: Creation date of the comment
+          description: Date and time the revision was created
+        modifiedBy:
+          type: string
+          description: User who made the change
     Record:
       type: object
       properties:
@@ -364,33 +363,34 @@ components:
           type: string
           format: date-time
           description: Date and time the record was last modified
-    RecordRevision:
+    BulkModifyRequest:
       type: object
       properties:
-        revisionNumber:
-          type: number
-          description: Sequential revision number
-        modifiedDate:
-          type: string
-          format: date-time
-          description: Date and time the revision was created
-        modifiedBy:
-          type: string
-          description: User who made the change
-    AddReferencesRequest:
-      type: object
-      required:
-      - fieldId
-      - targetRecordIds
-      properties:
-        fieldId:
-          type: string
-          description: Target reference field identifier
-        targetRecordIds:
+        filters:
           type: array
           items:
-            type: string
-          description: Collection of record IDs to add as references
+            type: object
+          description: Filters to select records to modify
+        values:
+          type: object
+          additionalProperties: true
+          description: Field names and new values to apply
+    AddCommentRequest:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Comment text content
+        isRichText:
+          type: boolean
+          default: false
+          description: Whether the message uses rich text formatting
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation date of the comment
   securitySchemes:
     BearerAuth:
       type: http

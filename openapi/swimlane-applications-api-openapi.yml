@@ -132,21 +132,6 @@ components:
         modifiedBy:
           type: string
           description: User who created this revision
-    Field:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique field identifier
-        name:
-          type: string
-          description: Field name
-        fieldType:
-          type: string
-          description: Type of the field (e.g. text, number, date, selection)
-        required:
-          type: boolean
-          description: Whether the field is required
     App:
       type: object
       properties:
@@ -167,6 +152,21 @@ components:
           items:
             $ref: '#/components/schemas/Field'
           description: Fields defined in the application
+    Field:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique field identifier
+        name:
+          type: string
+          description: Field name
+        fieldType:
+          type: string
+          description: Type of the field (e.g. text, number, date, selection)
+        required:
+          type: boolean
+          description: Whether the field is required
   securitySchemes:
     BearerAuth:
       type: http

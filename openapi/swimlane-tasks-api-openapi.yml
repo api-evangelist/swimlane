@@ -88,18 +88,6 @@ paths:
                 type: object
 components:
   schemas:
-    Task:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique task identifier
-        name:
-          type: string
-          description: Task name
-        taskType:
-          type: string
-          description: Type of task
     TaskExecuteRequest:
       type: object
       required:
@@ -113,6 +101,18 @@ components:
           type: object
           additionalProperties: true
           description: The raw record data to pass to the task
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task identifier
+        name:
+          type: string
+          description: Task name
+        taskType:
+          type: string
+          description: Type of task
   securitySchemes:
     BearerAuth:
       type: http
