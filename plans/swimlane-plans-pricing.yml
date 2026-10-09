@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Swimlane Plans and Pricing
 description: >-
   Swimlane uses an action-volume based pricing model for its Turbine SOAR platform.
@@ -62,3 +66,22 @@ contact:
     url: https://swimlane.com/contact/
   - type: Pricing
     url: https://swimlane.com/platform/
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Turbine Enterprise
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: MSSP / Service Provider
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
