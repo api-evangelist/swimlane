@@ -83,26 +83,6 @@ components:
           type: string
           format: password
           description: Swimlane password
-    Error:
-      type: object
-      properties:
-        ErrorCode:
-          type: integer
-          description: Numeric error code
-        Argument:
-          type: string
-          description: Additional error context
-        Entity:
-          type: string
-          description: Entity type related to the error
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: JWT authentication token
-        user:
-          $ref: '#/components/schemas/User'
     User:
       type: object
       properties:
@@ -138,6 +118,26 @@ components:
         disabled:
           type: boolean
           description: Whether the user account is disabled
+    Error:
+      type: object
+      properties:
+        ErrorCode:
+          type: integer
+          description: Numeric error code
+        Argument:
+          type: string
+          description: Additional error context
+        Entity:
+          type: string
+          description: Entity type related to the error
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT authentication token
+        user:
+          $ref: '#/components/schemas/User'
   securitySchemes:
     BearerAuth:
       type: http

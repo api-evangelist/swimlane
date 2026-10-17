@@ -116,22 +116,21 @@ paths:
           description: Revision not found
 components:
   schemas:
-    AppRevision:
+    Field:
       type: object
       properties:
         id:
           type: string
-          description: Revision identifier
-        revisionNumber:
-          type: number
-          description: Sequential revision number (positive whole number)
-        modifiedDate:
+          description: Unique field identifier
+        name:
           type: string
-          format: date-time
-          description: Date and time the revision was created
-        modifiedBy:
+          description: Field name
+        fieldType:
           type: string
-          description: User who created this revision
+          description: Type of the field (e.g. text, number, date, selection)
+        required:
+          type: boolean
+          description: Whether the field is required
     App:
       type: object
       properties:
@@ -152,21 +151,22 @@ components:
           items:
             $ref: '#/components/schemas/Field'
           description: Fields defined in the application
-    Field:
+    AppRevision:
       type: object
       properties:
         id:
           type: string
-          description: Unique field identifier
-        name:
+          description: Revision identifier
+        revisionNumber:
+          type: number
+          description: Sequential revision number (positive whole number)
+        modifiedDate:
           type: string
-          description: Field name
-        fieldType:
+          format: date-time
+          description: Date and time the revision was created
+        modifiedBy:
           type: string
-          description: Type of the field (e.g. text, number, date, selection)
-        required:
-          type: boolean
-          description: Whether the field is required
+          description: User who created this revision
   securitySchemes:
     BearerAuth:
       type: http
